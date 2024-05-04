@@ -14,22 +14,30 @@ return {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
 
+    -- Required dependency for nvim-dap-ui
+    'nvim-neotest/nvim-nio',
+
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    {
+      'simrat39/rust-tools.nvim',
+      dependencies = 'nvim-lspconfig',
+    },
   },
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
+    local rt = require 'rust-tools'
 
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
       automatic_setup = true,
-
+      automatic_installation = true,
       -- You can provide additional configuration to the handlers,
       -- see mason-nvim-dap README for more information
       handlers = {},
@@ -52,6 +60,39 @@ return {
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
     end, { desc = 'Debug: Set Breakpoint' })
 
+    rt.setup {
+      server = {
+        on_attach = function(_, bufnr)
+          require('rust-tools').inlay_hints.enable()
+        end,
+      },
+      tools = {
+        executor = require('rust-tools.executors').termopen,
+        inlay_hints = {
+          show_parameter_hints = true,
+          auto = true,
+          only_current_line = true,
+          parameter_hints_prefix = '<- ',
+          other_hints_prefix = '=> ',
+        },
+      },
+
+      -- Hover actions and code execution via the virtual text lens
+      hover_actions = {
+        auto_focus = false,
+        border = {
+          { '╭', 'FloatBorder' },
+          { '─', 'FloatBorder' },
+          { '╮', 'FloatBorder' },
+          { '│', 'FloatBorder' },
+          { '╯', 'FloatBorder' },
+          { '─', 'FloatBorder' },
+          { '╰', 'FloatBorder' },
+          { '│', 'FloatBorder' },
+        },
+      },
+    }
+
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
     dapui.setup {
@@ -60,6 +101,7 @@ return {
       --    Don't feel like these are good choices.
       icons = { expanded = '▾', collapsed = '▸', current_frame = '*' },
       controls = {
+        enabled = true,
         icons = {
           pause = '⏸',
           play = '▶',
