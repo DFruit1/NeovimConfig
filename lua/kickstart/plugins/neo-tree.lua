@@ -15,12 +15,15 @@ return {
   },
   opts = {
     close_if_last_window = true,
+    enable_opened_markers = true,
+    enable_refresh_on_write = true,
     filesystem = {
       window = {
         mappings = {
           ['\\'] = 'close_window',
         },
       },
+        use_libuv_file_watcher = true
     },
   },
 }

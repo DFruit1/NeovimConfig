@@ -7,7 +7,7 @@ return {
     "nvim-treesitter/nvim-treesitter-textobjects",
     },
     opts = {
-      ensure_installed = { 'rust', 'bash', 'c', 'html','css', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'typescript', 'tsx','yaml','xml','regex','sql','dockerfile','json', 'query' },
+      ensure_installed = { 'rust', 'bash', 'c', 'html','css', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'typescript', 'tsx','yaml','xml','regex','sql','dockerfile','json' },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {

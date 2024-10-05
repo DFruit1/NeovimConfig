@@ -66,7 +66,7 @@ local function insertType(type)
 end
 
 vim.keymap.set('i', '<C-a>', insertType 'Arc', { desc = 'Insert Arc type' })
-vim.keymap.set('i', '<C-x>', insertType 'Box', { desc = 'Insert Box type' })
+vim.keymap.set('i', '<C-b>', insertType 'Box', { desc = 'Insert Box type' })
 vim.keymap.set('i', '<C-c>', insertType 'Cell', { desc = 'Insert Cell type' })
 vim.keymap.set('i', '<C-C>', insertType 'Cow', { desc = 'Insert Cow type' })
 vim.keymap.set('i', '<C-E>', insertType 'Extension', { desc = 'Insert Extension type' })
@@ -78,8 +78,7 @@ vim.keymap.set('i', '<C-p>', insertType 'Pin', { desc = 'Insert Pin type' })
 vim.keymap.set('i', '<C-q>', insertType 'Query', { desc = 'Insert Query type' })
 vim.keymap.set('i', '<C-R>', insertType 'Request', { desc = 'Insert Request type' })
 vim.keymap.set('i', '<C-r>', insertType 'Result', { desc = 'Insert Result type' })
-vim.keymap.set('i', '<C-s>', insertType 'Stream', { desc = 'Insert Stream type' })
-vim.keymap.set('i', '<C-S>', insertType 'String', { desc = 'Insert String type' })
+vim.keymap.set('i', '<C-s>', insertType 'String', { desc = 'Insert String type' })
 vim.keymap.set('i', '<C-T>', insertType 'Btreemap', { desc = 'Insert Btreemap type' })
 vim.keymap.set('i', '<C-v>', insertType 'Vec', { desc = 'Insert Vec type' })
 vim.keymap.set('i', '<C-w>', insertType 'Weak', { desc = 'Insert Weak type' })
@@ -100,7 +99,7 @@ local function wrapType(type)
 end
 
 vim.keymap.set('s', 'a', wrapType 'Arc', { desc = 'Wrap current word with Arc' })
-vim.keymap.set('s', 'x', wrapType 'Box', { desc = 'Wrap current word with Box' })
+vim.keymap.set('s', 'b', wrapType 'Box', { desc = 'Wrap current word with Box' })
 vim.keymap.set('s', 'c', wrapType 'Cell', { desc = 'Wrap current word with Cell' })
 vim.keymap.set('s', 'C', wrapType 'Cow', { desc = 'Wrap current word with Cow' })
 vim.keymap.set('s', 'E', wrapType 'Extension', { desc = 'Wrap current word with Extension' })
@@ -112,17 +111,19 @@ vim.keymap.set('s', 'p', wrapType 'Pin', { desc = 'Wrap current word with Pin' }
 vim.keymap.set('s', 'q', wrapType 'Query', { desc = 'Wrap current word with Query' })
 vim.keymap.set('s', 'R', wrapType 'Request', { desc = 'Wrap current word with Request' })
 vim.keymap.set('s', 'r', wrapType 'Result', { desc = 'Wrap current word with Result' })
-vim.keymap.set('s', 's', wrapType 'Stream', { desc = 'Wrap current word with Stream' })
-vim.keymap.set('s', 'S', wrapType 'String', { desc = 'Wrap current word with String' })
+vim.keymap.set('s', 's', wrapType 'String', { desc = 'Wrap current word with String' })
 vim.keymap.set('s', 'T', wrapType 'Btreemap', { desc = 'Wrap current word with Btreemap' })
 vim.keymap.set('s', 'v', wrapType 'Vec', { desc = 'Wrap current word with Vec' })
 vim.keymap.set('s', 'w', wrapType 'Weak', { desc = 'Wrap current word with Weak' })
 
--- Result<Option<xxxxx>>
-
--- delete surrounding type wrapper
+-- delete surrounding type wrapper in <>
 vim.keymap.set('s', 'd', function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>F<dbxf>x', true, false, true), 'n', false)
+end)
+
+-- delete surrounding type wrapper in ()
+vim.keymap.set('s', 'x', function()
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>F(dbxf)x', true, false, true), 'n', false)
 end)
 
 -- [[ Basic Autocommands ]]
@@ -143,6 +144,17 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true })
 vim.api.nvim_set_keymap('n', '<c-d>', '<c-d>zz', { noremap = true })
 vim.api.nvim_set_keymap('n', '<c-u>', '<c-u>zz', { noremap = true })
+
+vim.api.nvim_set_keymap('n', 'Y', 'yiw', { noremap = true })
+vim.api.nvim_set_keymap('n', 'P', 'viwp', { noremap = true })
+
+-- Save file with Ctrl+s
+vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '<C-s>', '<Esc>:w<CR>a', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<C-s>', '<Esc>:w<CR>gv', { noremap = true, silent = true })
+
+-- Select all with Ctrl+a
+vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true })
 
 -- remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })

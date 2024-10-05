@@ -133,15 +133,13 @@ end, { desc = 'Next harpoon file' })
 vim.api.nvim_create_autocmd('BufReadPost', {
   pattern = '*',
   callback = function()
-    local ok, err = pcall(function()
+    local ok, _ = pcall(function()
       local last_pos = vim.fn.line '\'"'
       if last_pos > 0 and last_pos <= vim.fn.line '$' then
         vim.api.nvim_win_set_cursor(0, { last_pos, 0 })
         vim.cmd 'normal! g`"'
       end
     end)
-    if not ok then
-    end
   end,
 })
 
@@ -149,13 +147,11 @@ vim.api.nvim_create_autocmd('BufReadPost', {
 vim.api.nvim_create_autocmd({ 'BufWritePost', 'FileWritePost', 'QuitPre' }, {
   pattern = '*',
   callback = function()
-    local ok, err = pcall(function()
+    local ok, _ = pcall(function()
       if vim.fn.isbufloaded(vim.fn.expand '%') == 1 then
         vim.cmd 'normal! m`'
       end
     end)
-    if not ok then
-    end
   end,
 })
 
