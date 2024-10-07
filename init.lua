@@ -105,6 +105,8 @@ require 'lazy-bootstrap'
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
 
+vim.o.clipboard = 'unnamedplus'
+
 -- Putting Harpoon here because Neovim can't find it otherwise :(
 
 local harpoon = require 'harpoon'

@@ -160,4 +160,6 @@ vim.api.nvim_set_keymap('n', '<C-a>', 'ggVG', { noremap = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+vim.api.nvim_set_keymap('n', '<CR>', ':put! _<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', 'x', [[getline('.') =~ '^$' ? 'dd' : 'x']], { noremap = true, expr = true, silent = true })
 -- vim: ts=2 sts=2 sw=2 et
