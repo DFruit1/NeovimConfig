@@ -14,6 +14,27 @@ return {
       -- `neodev` configures Lua LSP for your Neovim config, runtime and plugins
       -- used for completion, annotations and signatures of Neovim apis
       { 'folke/neodev.nvim', opts = {} },
+
+      { 'jose-elias-alvarez/null-ls.nvim' }, -- For external formatters/linters
+
+      { 'mattn/emmet-vim' },
+
+      -- Tailwind CSS color previews in completion
+      {
+        'roobert/tailwindcss-colorizer-cmp.nvim',
+        config = function()
+          require('tailwindcss-colorizer-cmp').setup {
+            color_square_width = 2, -- Optional configuration
+          }
+        end,
+      },
+
+      {
+        'windwp/nvim-ts-autotag',
+        config = function()
+          require('nvim-ts-autotag').setup()
+        end,
+      },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -146,9 +167,6 @@ return {
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers =
         {
-          --clangd = {},
-          -- gopls = {},
-          -- pyright = {},
           rust_analyzer = {
             -- Cargo settings
             cargo = {
@@ -184,9 +202,21 @@ return {
           --    https://github.com/pmizio/typescript-tools.nvim
           --
           -- But for many setups, the LSP (`tsserver`) will work just fine
-          tsserver = {},
+          tsserver = {
+            settings = {
+              completions = {
+                completeFunctionCalls = true,
+              },
+            },
+            -- Disable tsserver's built-in formatter in favor of prettier
+            on_attach = function(client)
+              client.resolved_capabilities.document_formatting = false
+            end,
+          },
           marksman = {},
           markdownlint = {},
+          cssls = {},
+          html = {},
           tailwindcss = {},
 
           lua_ls = {
@@ -208,11 +238,10 @@ return {
         --
         --  You can press `g?` for help in this menu.
         require('mason').setup()
-
-      -- You can add other tools here that you want Mason to install
-      -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
+        'prettier',
+        'eslint_d',
         'stylua', -- Used to format Lua code
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
@@ -229,6 +258,25 @@ return {
           end,
         },
       }
+
+      local null_ls = require 'null-ls'
+      null_ls.setup {
+        sources = {
+          null_ls.builtins.formatting.prettier.with {
+            filetypes = { 'javascript', 'typescript', 'css', 'scss', 'html', 'json' },
+            extra_args = { '--tab-width', '2' },
+          },
+          null_ls.builtins.diagnostics.eslint_d.with {
+            diagnostics_format = '[eslint] #{m}\n(#{c})',
+            condition = function(utils)
+              return utils.root_has_file '.eslintrc.js' or utils.root_has_file '.eslintrc.json'
+            end,
+          },
+        },
+      }
+
+      vim.g.user_emmet_leader_key = '<C-e>' -- Optional: Use Ctrl+e for expanding Emmet abbreviations
+      vim.cmd 'autocmd FileType html,css,typescriptreact EmmetInstall' -- Auto-enable Emmet for HTML, CSS, and TSX files
     end,
   },
 }

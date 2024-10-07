@@ -2,12 +2,33 @@ return {
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    event = { "BufReadPre", "BufNewFile" },
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
-    "nvim-treesitter/nvim-treesitter-textobjects",
+      'nvim-treesitter/nvim-treesitter-textobjects',
     },
     opts = {
-      ensure_installed = { 'rust', 'bash', 'c', 'html','css', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc', 'typescript', 'tsx','yaml','xml','regex','sql','dockerfile','json', 'query' },
+      ensure_installed = {
+        'rust',
+        'bash',
+        'c',
+        'html',
+        'css',
+        'lua',
+        'luadoc',
+        'markdown',
+        'vim',
+        'vimdoc',
+        'typescript',
+        'tsx',
+        'yaml',
+        'xml',
+        'regex',
+        'sql',
+        'dockerfile',
+        'json',
+        'javascript',
+        'query',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -21,10 +42,10 @@ return {
       incremental_selection = {
         enable = true,
         keymaps = {
-          init_selection = "<C-space>",
-          node_incremental = "<C-space>",
+          init_selection = '<C-space>',
+          node_incremental = '<C-space>',
           scope_incremental = false,
-          node_decremental = "<bs>",
+          node_decremental = '<BS>',
         },
       },
     },
