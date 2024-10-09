@@ -93,9 +93,6 @@ vim.keymap.set('s', 'x', function()
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>F(dbxf)x', true, false, true), 'n', false)
 end)
 
--- [[ Basic Autocommands ]]
---  See `:help lua-guide-autocommands`
-
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
 --  See `:help vim.highlight.on_yank()`
@@ -129,4 +126,8 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 
 vim.api.nvim_set_keymap('n', '<CR>', ':put! _<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', 'x', [[getline('.') =~ '^$' ? 'dd' : 'x']], { noremap = true, expr = true, silent = true })
+-- Set a keybinding to search for recent files using Telescope
+
+vim.api.nvim_set_keymap('n', '<leader>fr', ':Telescope oldfiles<CR>', { noremap = true, silent = true })
+
 -- vim: ts=2 sts=2 sw=2 et
