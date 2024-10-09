@@ -123,7 +123,7 @@ vim.keymap.set('n', '<C-e>', function()
   harpoon.ui:toggle_quick_menu(harpoon:list())
 end, { desc = 'Open harpoon list' })
 
-vim.keymap.set('n', '<C-b>', function()
+vim.keymap.set('n', '<C-t>', function()
   harpoon:list():prev()
 end, { desc = 'Previous harpoon file' })
 

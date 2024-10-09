@@ -202,17 +202,17 @@ return {
           --    https://github.com/pmizio/typescript-tools.nvim
           --
           -- But for many setups, the LSP (`tsserver`) will work just fine
-          tsserver = {
-            settings = {
-              completions = {
-                completeFunctionCalls = true,
-              },
-            },
-            -- Disable tsserver's built-in formatter in favor of prettier
-            on_attach = function(client)
-              client.resolved_capabilities.document_formatting = false
-            end,
-          },
+          -- tsserver = {
+          --   settings = {
+          --     completions = {
+          --       completeFunctionCalls = true,
+          --     },
+          --   },
+          --   -- Disable tsserver's built-in formatter in favor of prettier
+          --   on_attach = function(client)
+          --     client.resolved_capabilities.document_formatting = false
+          --   end,
+          -- },
           marksman = {},
           markdownlint = {},
           cssls = {},

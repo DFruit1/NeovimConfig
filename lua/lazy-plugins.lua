@@ -81,7 +81,9 @@ require('lazy').setup {
 
   require 'kickstart/plugins/lualine',
 
-  --require 'kickstart/plugins/mini',
+  require 'kickstart/plugins/undotree',
+
+  require 'kickstart/plugins/mini',
 
   require 'kickstart/plugins/treesitter',
 

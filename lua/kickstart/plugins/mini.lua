@@ -36,5 +36,11 @@ return {
       --  Check out: https://github.com/echasnovski/mini.nvim
     end,
   },
+  {
+    'nvim-tree/nvim-web-devicons',
+    config = function()
+      require('nvim-web-devicons').setup() -- Explicitly initialize
+    end,
+  },
 }
 -- vim: ts=2 sts=2 sw=2 et
