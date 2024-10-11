@@ -14,6 +14,7 @@ return {
         'html',
         'css',
         'lua',
+        'markdown_inline',
         'luadoc',
         'markdown',
         'vim',

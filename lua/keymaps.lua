@@ -8,8 +8,6 @@ vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
 
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous [D]iagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next [D]iagnostic message' })
 vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, { desc = 'Show diagnostic [E]rror messages' })
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
 
@@ -128,6 +126,8 @@ vim.api.nvim_set_keymap('n', '<CR>', ':put! _<CR>', { noremap = true, silent = t
 vim.api.nvim_set_keymap('n', 'x', [[getline('.') =~ '^$' ? 'dd' : 'x']], { noremap = true, expr = true, silent = true })
 -- Set a keybinding to search for recent files using Telescope
 
-vim.api.nvim_set_keymap('n', '<leader>fr', ':Telescope oldfiles<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope oldfiles<CR>', { noremap = true, silent = true })
 
+vim.api.nvim_set_keymap('n', '<PageUp>', '<C-w>W', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<PageDown>', '<C-w>w', { noremap = true, silent = true })
 -- vim: ts=2 sts=2 sw=2 et

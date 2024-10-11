@@ -35,6 +35,11 @@ return {
           require('nvim-ts-autotag').setup()
         end,
       },
+
+      {
+        'ap/vim-css-color',
+        ft = { 'css', 'scss', 'sass', 'html' },
+      },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -135,16 +140,6 @@ return {
               buffer = event.buf,
               callback = vim.lsp.buf.clear_references,
             })
-          end
-
-          -- The following autocommand is used to enable inlay hints in your
-          -- code, if the language server you are using supports them
-          --
-          -- This may be unwanted, since they displace some of your code
-          if client and client.server_capabilities.inlayHintProvider and vim.lsp.inlay_hint then
-            map('<leader>th', function()
-              vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
-            end, '[T]oggle Inlay [H]ints')
           end
         end,
       })
@@ -259,23 +254,23 @@ return {
         },
       }
 
-      local null_ls = require 'null-ls'
-      null_ls.setup {
-        sources = {
-          null_ls.builtins.formatting.prettier.with {
-            filetypes = { 'javascript', 'typescript', 'css', 'scss', 'html', 'json' },
-            extra_args = { '--tab-width', '2' },
-          },
-          null_ls.builtins.diagnostics.eslint_d.with {
-            diagnostics_format = '[eslint] #{m}\n(#{c})',
-            condition = function(utils)
-              return utils.root_has_file '.eslintrc.js' or utils.root_has_file '.eslintrc.json'
-            end,
-          },
-        },
-      }
-
-      vim.g.user_emmet_leader_key = '<C-e>' -- Optional: Use Ctrl+e for expanding Emmet abbreviations
+      -- local null_ls = require 'null-ls'
+      -- null_ls.setup {
+      --   sources = {
+      --     null_ls.builtins.formatting.prettier.with {
+      --       filetypes = { 'javascript', 'typescript', 'css', 'scss', 'html', 'json' },
+      --       extra_args = { '--tab-width', '2' },
+      --     },
+      --     null_ls.builtins.diagnostics.eslint_d.with {
+      --       diagnostics_format = '[eslint] #{m}\n(#{c})',
+      --       condition = function(utils)
+      --         return utils.root_has_file '.eslintrc.js' or utils.root_has_file '.eslintrc.json'
+      --       end,
+      --     },
+      --   },
+      -- }
+      --
+      vim.g.user_emmet_leader_key = '<C-y>' -- Optional: Use Ctrl+e for expanding Emmet abbreviations
       vim.cmd 'autocmd FileType html,css,typescriptreact EmmetInstall' -- Auto-enable Emmet for HTML, CSS, and TSX files
     end,
   },
