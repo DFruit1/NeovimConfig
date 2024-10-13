@@ -105,10 +105,12 @@ vim.api.nvim_create_autocmd('TextYankPost', {
 
 vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true })
 vim.api.nvim_set_keymap('n', '<c-d>', '<c-d>zz', { noremap = true })
+vim.api.nvim_set_keymap('n', '<c-d>', '<c-d>zz', { noremap = true })
+vim.api.nvim_set_keymap('n', '<c-u>', '<c-u>zz', { noremap = true })
 vim.api.nvim_set_keymap('n', '<c-u>', '<c-u>zz', { noremap = true })
 
 vim.api.nvim_set_keymap('n', 'Y', 'yiw', { noremap = true })
-vim.api.nvim_set_keymap('n', 'P', 'viwp', { noremap = true })
+vim.api.nvim_set_keymap('n', 'P', 'viw"_dp', { noremap = true })
 
 -- Save file with Ctrl+s
 vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
@@ -127,7 +129,13 @@ vim.api.nvim_set_keymap('n', 'x', [[getline('.') =~ '^$' ? 'dd' : 'x']], { norem
 -- Set a keybinding to search for recent files using Telescope
 
 vim.api.nvim_set_keymap('n', '<leader>f', ':Telescope oldfiles<CR>', { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<PageUp>', '<C-w>W', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<PageDown>', '<C-w>w', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>sc', 'LiveGrep Neovim Config', {
+  noremap = true,
+  callback = function()
+    require('telescope.builtin').live_grep {
+      search_dirs = { '~/.config/nvim' }, -- Specify the Neovim config directory
+    }
+  end,
+})
+vim.api.nvim_set_keymap('n', '<Tab>', '<C-w>w', { noremap = true, silent = true })
 -- vim: ts=2 sts=2 sw=2 et

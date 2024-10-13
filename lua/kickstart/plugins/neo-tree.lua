@@ -11,7 +11,7 @@ return {
   },
   cmd = 'Neotree',
   keys = {
-    { '\\', ':Neotree reveal<CR>', { desc = 'NeoTree reveal' } },
+    { '\\', ':Neotree toggle<CR>', { desc = 'NeoTree reveal' } },
   },
   opts = {
     close_if_last_window = true,
@@ -23,7 +23,7 @@ return {
           ['\\'] = 'close_window',
         },
       },
-        use_libuv_file_watcher = true
+      use_libuv_file_watcher = true,
     },
   },
 }

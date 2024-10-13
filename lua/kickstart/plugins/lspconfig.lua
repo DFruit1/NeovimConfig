@@ -15,19 +15,9 @@ return {
       -- used for completion, annotations and signatures of Neovim apis
       { 'folke/neodev.nvim', opts = {} },
 
-      { 'jose-elias-alvarez/null-ls.nvim' }, -- For external formatters/linters
+      -- { 'jose-elias-alvarez/null-ls.nvim' }, -- For external formatters/linters
 
       { 'mattn/emmet-vim' },
-
-      -- Tailwind CSS color previews in completion
-      {
-        'roobert/tailwindcss-colorizer-cmp.nvim',
-        config = function()
-          require('tailwindcss-colorizer-cmp').setup {
-            color_square_width = 2, -- Optional configuration
-          }
-        end,
-      },
 
       {
         'windwp/nvim-ts-autotag',
@@ -36,10 +26,10 @@ return {
         end,
       },
 
-      {
-        'ap/vim-css-color',
-        ft = { 'css', 'scss', 'sass', 'html' },
-      },
+      -- {
+      --   'ap/vim-css-color',
+      --   ft = { 'css', 'scss', 'sass', 'html' },
+      -- },
     },
     config = function()
       -- Brief aside: **What is LSP?**
@@ -272,6 +262,7 @@ return {
       --
       vim.g.user_emmet_leader_key = '<C-y>' -- Optional: Use Ctrl+e for expanding Emmet abbreviations
       vim.cmd 'autocmd FileType html,css,typescriptreact EmmetInstall' -- Auto-enable Emmet for HTML, CSS, and TSX files
+      vim.cmd 'autocmd BufEnter *.css,*.scss,*.html,*.js,*.jsx,*.ts,*.tsx ColorizerAttachToBuffer'
     end,
   },
 }

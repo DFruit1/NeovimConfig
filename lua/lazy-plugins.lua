@@ -18,17 +18,6 @@ require('lazy').setup {
   'tpope/vim-dispatch',
 
   {
-    'kylechui/nvim-surround',
-    version = '*', -- Use for stability; omit to use `main` branch for the latest features
-    event = 'VeryLazy',
-    config = function()
-      require('nvim-surround').setup {
-        -- Configuration here, or leave empty to use defaults
-      }
-    end,
-  },
-
-  {
     'tummetott/unimpaired.nvim',
     event = 'VeryLazy',
     opts = {
@@ -57,32 +46,20 @@ require('lazy').setup {
   -- include a plugin definition from file lua/path/name.lua
 
   require 'kickstart/plugins/gitsigns',
-
   require 'kickstart/plugins/which-key',
-
   require 'kickstart/plugins/telescope',
-
   require 'kickstart/plugins/lspconfig',
-
   require 'kickstart/plugins/conform',
-
   require 'kickstart/plugins/cmp',
-
   require 'kickstart/plugins/colourscheme',
-
   require 'kickstart/plugins/todo-comments',
-
   require 'kickstart/plugins/lualine',
-
   require 'kickstart/plugins/trouble',
-
   require 'kickstart/plugins/undotree',
-
   require 'kickstart/plugins/mini',
-
   require 'kickstart/plugins/treesitter',
-
   require 'kickstart/plugins/oil',
+  require 'kickstart/plugins/surround',
 
   -- The following two comments only work if you have downloaded the kickstart repo, not just copy pasted the
   -- init.lua. If you want these files, they are in the repository, so you can just download them and
